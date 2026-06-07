@@ -1,0 +1,93 @@
+/* ICB Academic System — CSS Variables & Design TokensModern SaaS Minimalist Theme  */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+:root {
+  /* ── Brand Colours ───────────────────────────────────── */
+  --primary:        #4F46E5;
+  --primary-hover:  #4338CA;
+  --primary-light:  #EEF2FF;
+  --brand-grad:     linear-gradient(135deg, #4F46E5, #7C3AED);
+
+  /* ── Neutrals (Slate) ────────────────────────────────── */
+  --bg-app:         #F8FAFC;
+  --surface:        #FFFFFF;
+  --ink:            #0F172A;
+  --ink-light:      #334155;
+  --text-muted:     #64748B;
+  --border:         #E2E8F0;
+  --border-light:   #F1F5F9;
+
+  /* ── Semantic Colours ────────────────────────────────── */
+  --success:        #10B981;
+  --success-bg:     #D1FAE5;
+  --success-text:   #065F46;
+
+  --danger:         #EF4444;
+  --danger-bg:      #FEE2E2;
+  --danger-text:    #991B1B;
+
+  --warning:        #F59E0B;
+  --warning-bg:     #FEF3C7;
+  --warning-text:   #92400E;
+
+  --info:           #3B82F6;
+  --info-bg:        #DBEAFE;
+  --info-text:      #1E40AF;
+
+  /* ── Layout ──────────────────────────────────────────── */
+  --sidebar:        260px;
+  --topbar:         64px;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-sans:      'Inter', system-ui, -apple-system, sans-serif;
+  --font-display:   'Plus Jakarta Sans', var(--font-sans);
+
+  /* ── Radii & Shadows ─────────────────────────────────── */
+  --radius-sm:      6px;
+  --radius:         12px;
+  --radius-lg:      16px;
+  --radius-full:    9999px;
+
+  --shadow-sm:      0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-card:    0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.02);
+  --shadow-float:   0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ── Legacy aliases (JS compatibility) ───────────────── */
+  --light:          #64748B;   /* = --text-muted  */
+  --mist:           #F1F5F9;   /* = --border-light */
+  --sky2:           #3B82F6;   /* = --info        */
+  --orange:         #F59E0B;   /* = --warning     */
+  --green:          #10B981;   /* = --success     */
+  --red:            #EF4444;   /* = --danger      */
+  --text:           #334155;   /* = --ink-light   */
+}
+
+/* ── Dark Mode ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg-app:         #0F172A;
+  --surface:        #1E293B;
+  --ink:            #F1F5F9;
+  --ink-light:      #CBD5E1;
+  --text-muted:     #94A3B8;
+  --border:         #334155;
+  --border-light:   #1E293B;
+  --primary-light:  #1E1B4B;
+
+  --success-bg:     #064E3B;
+  --success-text:   #6EE7B7;
+  --danger-bg:      #450A0A;
+  --danger-text:    #FCA5A5;
+  --warning-bg:     #451A03;
+  --warning-text:   #FCD34D;
+  --info-bg:        #0C1A3B;
+  --info-text:      #93C5FD;
+
+  --light:          #94A3B8;
+  --mist:           #1E293B;
+  --text:           #CBD5E1;
+
+  --shadow-sm:      0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-card:    0 4px 6px -1px rgb(0 0 0 / 0.3);
+  --shadow-float:   0 20px 25px -5px rgb(0 0 0 / 0.5);
+}

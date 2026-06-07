@@ -1,0 +1,20 @@
+{
+  "name": "itc-academic-system",
+  "version": "3.1.0",
+  "description": "ITC Academic Management System — Institute of Technology of Cambodia",
+  "private": true,
+  "scripts": {
+    "watch": "npx chokidar-cli 'public/assets/css/**/*.css' 'public/assets/js/**/*.js' --initial -c 'echo Changed: {path}'",
+    "lint:js": "npx eslint public/assets/js/**/*.js --ext .js",
+    "lint:css": "npx stylelint 'public/assets/css/**/*.css'"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "eslint": "^9.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

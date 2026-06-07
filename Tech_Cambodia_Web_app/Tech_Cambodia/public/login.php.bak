@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TCB Academic System — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/login.css">
+<style>
+.logo-link{text-decoration:none;display:flex;align-items:center;gap:.75rem;}
+.logo-link:hover .logo-circle{transform:scale(1.06);box-shadow:0 0 0 3px rgba(255,255,255,.25);}
+.logo-circle{transition:transform .2s,box-shadow .2s;}
+.ams-visit{display:inline-flex;align-items:center;gap:.45rem;font-size:.72rem;color:var(--log-muted,#94A3B8);text-decoration:none;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:.3rem .75rem;transition:all .2s;margin-top:1.2rem;}
+.ams-visit:hover{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.06);}
+.card-footer-link{margin-top:1.2rem;text-align:center;font-size:.75rem;color:var(--log-muted,#94A3B8);}  
+.card-footer-link a{color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:.75;}
+.card-footer-link a:hover{opacity:1;}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="left">
+    <div class="geo"></div><div class="geo2"></div>
+    <div class="logo-row"><a href="https://itc.edu.kh/home-ams/#" target="_blank" rel="noopener" class="logo-link"><div class="logo-circle">ITC</div><div class="logo-text"><strong>Institute of Technology</strong>of Cambodia</div></a></div>
+    <div class="hero">
+      <div class="hero-sup">Academic Management</div>
+      <h1>One Platform.<br>Every <em>Student Journey.</em></h1>
+      <p class="hero-desc">Manage admissions, courses, grades, GPA and official transcripts with ITC's integrated academic portal — built for Cambodia's premier engineering institution.</p>
+      <a class="ams-visit" href="#" target="_blank" rel="noopener"><i class="fas fa-external-link-alt" style="font-size:.65rem"></i> Visit ITC Academic Portal (AMS)</a>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><div class="pillar-icon"><i class="fas fa-users-gear"></i></div><div><div class="pillar-label">Student Lifecycle</div><div class="pillar-sub">Admission → Enrollment → Graduation</div></div></div>
+      <div class="pillar"><div class="pillar-icon"><i class="fas fa-chart-line"></i></div><div><div class="pillar-label">GPA & Academic Standing</div><div class="pillar-sub">Real-time CGPA with ITC grading scale</div></div></div>
+      <div class="pillar"><div class="pillar-icon"><i class="fas fa-scroll"></i></div><div><div class="pillar-label">Official Transcripts</div><div class="pillar-sub">Registrar-controlled finalized grades</div></div></div>
+      <div class="pillar"><div class="pillar-icon"><i class="fas fa-shield-halved"></i></div><div><div class="pillar-label">Role-Based Access</div><div class="pillar-sub">Admin, Registrar, Lecturer, Staff</div></div></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="card" id="card">
+      <div class="card-head">
+        <div class="chip"><i class="fas fa-lock"></i>&nbsp;Secure Portal</div>
+        <h2>Welcome back</h2>
+        <p>Sign in to your academic account</p>
+      </div>
+      <div class="alert alert-err" id="err"><i class="fas fa-triangle-exclamation"></i><span id="err-msg">Invalid credentials</span></div>
+      <div class="alert alert-warn" id="warn-timeout"><i class="fas fa-clock"></i><span>Your session expired. Please sign in again.</span></div>
+      <div class="field">
+        <label>Username or Email</label>
+        <div class="inp-wrap"><i class="fas fa-user pre"></i><input type="text" id="username" placeholder="admin" autocomplete="username" autofocus></div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="inp-wrap"><i class="fas fa-lock pre"></i><input type="password" id="password" placeholder="••••••••" autocomplete="current-password"><button class="eye" onclick="togglePw(this)" type="button" tabindex="-1"><i class="fas fa-eye"></i></button></div>
+      </div>
+      <button class="btn-primary" id="btn" onclick="doLogin()"><i class="fas fa-right-to-bracket"></i> Sign In</button>
+      <div class="creds">
+        <div class="creds-title"><i class="fas fa-circle-info"></i> Default accounts — click to fill</div>
+        <div class="cred" onclick="fill('admin','Admin@123')"><span class="cred-role"><i class="fas fa-user-shield" style="color:#1565C0;margin-right:.4rem;font-size:.75rem"></i>Administrator</span><span class="cred-badge">admin</span></div>
+        <div class="cred" onclick="fill('registrar','Admin@123')"><span class="cred-role"><i class="fas fa-clipboard-user" style="color:#558B2F;margin-right:.4rem;font-size:.75rem"></i>Registrar</span><span class="cred-badge">registrar</span></div>
+        <div class="cred" onclick="fill('lecturer1','Admin@123')"><span class="cred-role"><i class="fas fa-chalkboard-user" style="color:#E65100;margin-right:.4rem;font-size:.75rem"></i>Lecturer</span><span class="cred-badge">lecturer1</span></div>
+        <div class="cred" onclick="fill('staff1','Admin@123')"><span class="cred-role"><i class="fas fa-id-badge" style="color:#6A1B9A;margin-right:.4rem;font-size:.75rem"></i>Staff</span><span class="cred-badge">staff1</span></div>
+
+      <div class="card-footer-link">Not a system user? <a href="https://itc.edu.kh/home-ams/#" target="_blank" rel="noopener">Visit ITC AMS Portal</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+if(new URLSearchParams(location.search).get('timeout')==='1') document.getElementById('warn-timeout').classList.add('show');
+['username','password'].forEach(id=>{
+  document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+  document.getElementById(id).addEventListener('input',()=>{document.getElementById('err').classList.remove('show');document.getElementById('warn-timeout').classList.remove('show');});
+});
+function togglePw(btn){const inp=btn.closest('.inp-wrap').querySelector('input');const show=inp.type==='password';inp.type=show?'text':'password';btn.querySelector('i').className=show?'fas fa-eye-slash':'fas fa-eye';}
+function fill(u,p){document.getElementById('username').value=u;document.getElementById('password').value=p;document.getElementById('err').classList.remove('show');}
+async function doLogin(){
+  const btn=document.getElementById('btn');
+  const u=document.getElementById('username').value.trim();
+  const pw=document.getElementById('password').value;
+  if(!u||!pw){showErr('Please enter your username and password');return;}
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Signing in…';btn.disabled=true;
+  try{
+    const fd=new FormData();fd.append('action','login');fd.append('username',u);fd.append('password',pw);
+    const r=await fetch('api.php',{method:'POST',body:fd});
+    const j=await r.json();
+    if(j.ok){localStorage.setItem('csrf_token',j.data.csrf_token);btn.classList.add('success');btn.innerHTML='<i class="fas fa-check"></i> Success!';setTimeout(()=>window.location.href='index.php',400);return;}
+    else{showErr(j.error||'Invalid credentials. Please try again.');document.getElementById('card').classList.add('shake');setTimeout(()=>document.getElementById('card').classList.remove('shake'),400);}
+  }catch(e){showErr('Cannot connect to server. Make sure Apache & MySQL are running.');}
+  btn.innerHTML='<i class="fas fa-right-to-bracket"></i> Sign In';btn.disabled=false;
+}
+function showErr(m){document.getElementById('err-msg').textContent=m;document.getElementById('err').classList.add('show');}
+</script>
+</body>
+</html>

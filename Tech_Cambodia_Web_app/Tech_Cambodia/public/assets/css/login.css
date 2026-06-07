@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ICB Academic System | Smart Campus Login</title>
+  
+  <!-- Google Fonts + Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External main stylesheet -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <!-- Animated background orbs (modern aesthetic) -->
+  <div class="bg-orb-1"></div>
+  <div class="bg-orb-2"></div>
+  <div class="bg-grid"></div>
+
+  <div class="login-container">
+    <!-- left hero section with stats and branding -->
+    <div class="login-hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-regular fa-star-shine"></i>
+          <span>AI‑Powered · Smart Campus</span>
+        </div>
+        <h1 class="hero-title">
+          ITC <span>Academic</span> System
+        </h1>
+        <p class="hero-description">
+          Centralized platform for academic management, student progress, real‑time analytics, and digital transformation.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">14K+</div>
+            <div class="stat-label">Active Learners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">320+</div>
+            <div class="stat-label">Expert Faculty</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Digital Integration</div>
+          </div>
+        </div>
+        <div class="hero-quote">
+          <i class="fa-regular fa-quote-left"></i>
+          Empowering future tech leaders with seamless academic experience.
+        </div>
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- right login panel -->
+    <div class="login-panel">
+      <div class="panel-header">
+        <div class="logo-icon">
+          <i class="fa-regular fa-building-columns"></i>
+        </div>
+        <div class="logo-text">
+          <h3>ITC Institute</h3>
+          <p>Cambodia University of Technology</p>
+        </div>
+      </div>
+
+      <div class="welcome-message">
+        <h2>Welcome back</h2>
+        <p>Sign in to access your academic dashboard, grades, and attendance.</p>
+      </div>
+
+      <!-- Dynamic alert box -->
+      <div id="alertBox" class="alert-message" style="display: none;"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="input-field">
+          <label>Email address</label>
+          <div class="input-icon-group">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" id="email" placeholder="student@itc.edu" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <label>Password</label>
+          <div class="input-icon-group password-wrapper">
+            <i class="fa-regular fa-lock"></i>
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">
+              <i class="fa-regular fa-eye-slash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-extra">
+          <label class="checkbox-custom">
+            <input type="checkbox" id="rememberCheckbox"> <span>Keep me signed in</span>
+          </label>
+          <a href="#" class="forgot-link">Recover account →</a>
+        </div>
+
+        <button type="submit" class="login-button" id="loginBtn">
+          <span class="btn-text" id="btnText">Sign in</span>
+          <div class="spinner-dots" id="btnSpinner">
+            <span></span><span></span><span></span>
+          </div>
+        </button>
+      </form>
+
+      <div class="divider-separator">
+        <span>or continue with</span>
+      </div>
+
+      <div class="social-group">
+        <button type="button" class="social-btn google-btn">
+          <i class="fa-brands fa-google"></i> Google
+        </button>
+        <button type="button" class="social-btn ms-btn">
+          <i class="fa-brands fa-microsoft"></i> Microsoft
+        </button>
+      </div>
+
+      <div class="panel-footer">
+        <p>© 2026 ITC Academic Ecosystem • <a href="#">Privacy & Terms</a> • <a href="#">Support</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // DOM elements
+      const form = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const loginBtn = document.getElementById('loginBtn');
+      const btnTextSpan = document.getElementById('btnText');
+      const spinnerDiv = document.getElementById('btnSpinner');
+      const alertBox = document.getElementById('alertBox');
+      const togglePwdBtn = document.getElementById('togglePassword');
+
+      // Helper: Show alert (success/error)
+      function showAlert(message, type) {
+        alertBox.style.display = 'block';
+        alertBox.textContent = message;
+        alertBox.className = 'alert-message'; // reset
+        if (type === 'success') {
+          alertBox.classList.add('alert-success');
+        } else if (type === 'error') {
+          alertBox.classList.add('alert-error');
+        }
+        // auto scroll into view
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function hideAlert() {
+        alertBox.style.display = 'none';
+        alertBox.textContent = '';
+        alertBox.className = 'alert-message';
+      }
+
+      // Loading state
+      function setLoading(isLoading) {
+        if (isLoading) {
+          loginBtn.classList.add('loading');
+          loginBtn.disabled = true;
+          btnTextSpan.style.opacity = '0';
+          spinnerDiv.style.display = 'flex';
+        } else {
+          loginBtn.classList.remove('loading');
+          loginBtn.disabled = false;
+          btnTextSpan.style.opacity = '1';
+          spinnerDiv.style.display = 'none';
+        }
+      }
+
+      // Mock authentication with modern validation rules:
+      // - Must be @itc.edu domain OR valid demo emails (except error@itc.edu triggers explicit fail)
+      // - Password length >= 6 chars for security demo
+      function simulateAuthentication(email, password) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            // special case: exact "error@itc.edu" always shows invalid (as per original requirement)
+            if (email.toLowerCase() === 'error@itc.edu') {
+              resolve({ success: false, message: 'Authentication failed. Invalid credentials.' });
+              return;
+            }
+            // valid domain check: itc.edu domain OR any test email that contains '@' and passes length
+            const isValidDomain = email.toLowerCase().endsWith('@itc.edu') || email.toLowerCase().includes('@itc.');
+            // allow generic demo@example.com for showcase but with extra validation
+            const isDemoValid = (email.includes('@') && email.includes('.') && !email.includes('error'));
+            
+            if ((isValidDomain || isDemoValid) && password.length >= 6) {
+              resolve({ success: true, message: '✓ Welcome back! Redirecting to dashboard...' });
+            } else {
+              let errorMsg = 'Access denied. ';
+              if (password.length < 6) errorMsg += 'Password must be at least 6 characters.';
+              else if (!isValidDomain && !isDemoValid) errorMsg += 'Use your institutional email (@itc.edu).';
+              else errorMsg += 'Invalid email or password.';
+              resolve({ success: false, message: errorMsg });
+            }
+          }, 1650);
+        });
+      }
+
+      // Form submit handler
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        // front-end validation empty fields
+        if (!email) {
+          showAlert('Please enter your email address.', 'error');
+          emailInput.focus();
+          return;
+        }
+        if (!password) {
+          showAlert('Password cannot be empty.', 'error');
+          passwordInput.focus();
+          return;
+        }
+        // basic email format (quick)
+        if (!email.includes('@') || !email.includes('.')) {
+          showAlert('Enter a valid email address (e.g., name@itc.edu).', 'error');
+          emailInput.focus();
+          return;
+        }
+
+        // start loading simulation
+        setLoading(true);
+
+        try {
+          const result = await simulateAuthentication(email, password);
+          setLoading(false);
+          if (result.success) {
+            showAlert(result.message, 'success');
+            // optional: simulate redirect effect
+            setTimeout(() => {
+              // Just for UI effect: you can reset the form or keep; no actual redirect.
+              if (confirm('Demo flow: Dashboard would open. Continue exploring? (mock)')) {
+                // fake reset but we just keep login for demo
+              }
+            }, 400);
+          } else {
+            showAlert(result.message, 'error');
+            // shake effect for better feedback
+            const panel = document.querySelector('.login-panel');
+            panel.classList.add('shake-error');
+            setTimeout(() => panel.classList.remove('shake-error'), 500);
+          }
+        } catch (err) {
+          setLoading(false);
+          showAlert('Network error. Please try again.', 'error');
+        }
+      });
+
+      // Password visibility toggle (modern UX)
+      if (togglePwdBtn) {
+        togglePwdBtn.addEventListener('click', () => {
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+          const icon = togglePwdBtn.querySelector('i');
+          if (type === 'text') {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+          } else {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+          }
+        });
+      }
+
+      // Additional small UI: focus effects & clear alert on typing
+      const allInputs = [emailInput, passwordInput];
+      allInputs.forEach(input => {
+        input.addEventListener('input', () => {
+          if (alertBox.style.display === 'block' && alertBox.classList.contains('alert-error')) {
+            hideAlert();
+          }
+        });
+      });
+      
+      // Social buttons demo feedback
+      const socialBtns = document.querySelectorAll('.social-btn');
+      socialBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          showAlert('Demo: SSO integration coming soon. Use email/password.', 'error');
+        });
+      });
+      
+      // Forgot password demo
+      const forgotLink = document.querySelector('.forgot-link');
+      if (forgotLink) {
+        forgotLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          showAlert('Password reset link will be sent to your registered email (demo feature).', 'success');
+        });
+      }
+      
+      // Tiny initial hide spinner style
+      spinnerDiv.style.display = 'none';
+      btnTextSpan.style.opacity = '1';
+    })();
+  </script>
+</body>
+</html>
