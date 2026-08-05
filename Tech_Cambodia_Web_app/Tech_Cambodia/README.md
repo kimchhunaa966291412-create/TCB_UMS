@@ -1,5 +1,4 @@
-# ITC Academic System v3.2
-**Institute of Technology of Cambodia**
+# Academic System 
 
 ## What's New in v3.2
 
